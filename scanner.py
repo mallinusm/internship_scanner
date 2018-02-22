@@ -23,6 +23,10 @@ class Message:
     def input(question):
         return raw_input("[+] %s" % question)
 
+    @staticmethod
+    def success(message):
+        print "[+] \x1b[6;30;42m%s\x1b[0m" % message
+
 
 class CsrfTokenSecurityPolicy:
     header = None
@@ -43,6 +47,9 @@ class CsrfTokenSecurityPolicy:
 
             count += 1
 
+        if count == 0:
+            Message.success('CSRF protected')
+
         return count
 
 
@@ -59,6 +66,9 @@ class ContentSecurityPolicy:
             Message.debug("%s HTTP header is missing" % self.header)
 
             count += 1
+
+        if count == 0:
+            Message.success('Content-Security-Policy protected')
 
         return count
 
