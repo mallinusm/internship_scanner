@@ -177,8 +177,6 @@ class Vulnerabilities:
             if response is not None:
                 return self.identify_vulnerabilities(response.request, response)
 
-        Message.debug("Unsupported endpoint: [%s] to [%s]" % (method, url))
-
         Message.debug("Unable to test the Security Policies against endpoint [%s] to [%s]" % (method, url))
 
         return 0
