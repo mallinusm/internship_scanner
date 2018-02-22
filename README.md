@@ -14,3 +14,4 @@ make run ~/web/project/to/scan
 
 ![Vulnerable Web Application](Capture.PNG "Vulnerable Web Application")
 
+![Safe Web Application](Safe.PNG "Safe Web Application")
