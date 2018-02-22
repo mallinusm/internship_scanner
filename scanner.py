@@ -174,13 +174,14 @@ class Vulnerabilities:
         if Vulnerabilities.is_valid_method(method):
             response = Vulnerabilities.execute_request(method, url)
 
-            return self.identify_vulnerabilities(response.request, response)
-        else:
-            Message.debug("Unsupported endpoint: %s" % method)
+            if response is not None:
+                return self.identify_vulnerabilities(response.request, response)
 
-            Message.debug("Unable to test the Security Policies against endpoint [%s] to [%s]" % (method, url))
+        Message.debug("Unsupported endpoint: [%s] to [%s]" % (method, url))
 
-            return 0
+        Message.debug("Unable to test the Security Policies against endpoint [%s] to [%s]" % (method, url))
+
+        return 0
 
     def from_paths(self, paths):
         count = 0
