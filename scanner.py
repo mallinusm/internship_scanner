@@ -27,6 +27,10 @@ class Message:
     def success(message):
         print "[+] \x1b[6;30;42m%s\x1b[0m" % message
 
+    @staticmethod
+    def error(message):
+        print "[+] \x1b[0;30;41m%s\x1b[0m" % message
+
 
 class CsrfTokenSecurityPolicy:
     header = None
@@ -38,12 +42,12 @@ class CsrfTokenSecurityPolicy:
         count = 0
 
         if not response.headers.get(self.header):
-            Message.debug("%s HTTP header is missing" % self.header)
+            Message.error("%s HTTP header is missing" % self.header)
 
             count += 1
 
         if request.method.lower() == "post" and response.status_code == 200:
-            Message.debug("HTTP status code is 200 (yet no CSRF token was sent) and should be 403")
+            Message.error("HTTP status code is 200 (yet no CSRF token was sent) and should be 403")
 
             count += 1
 
@@ -63,7 +67,7 @@ class ContentSecurityPolicy:
         count = 0
 
         if not response.headers.get(self.header):
-            Message.debug("%s HTTP header is missing" % self.header)
+            Message.error("%s HTTP header is missing" % self.header)
 
             count += 1
 
