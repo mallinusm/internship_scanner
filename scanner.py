@@ -1,6 +1,8 @@
+import argparse
 import os
 import sys
 import requests
+import time
 import yaml
 
 from requests import ConnectionError
@@ -195,19 +197,25 @@ class Vulnerabilities:
 
         return 0
 
-    def from_paths(self, paths):
+    def from_paths(self, paths, delay=None):
         count = 0
 
         for path, methods in paths.iteritems():
             for method in methods:
                 count += self.from_path(method, path)
 
+                if delay is not None:
+                    Message.debug("Waiting for a delay of %s second" % delay)
+                    time.sleep(delay)
+
         return count
 
 
 class Application:
-    def __init__(self):
-        pass
+    args = None
+
+    def __init__(self, args=None):
+        self.args = args
 
     @staticmethod
     def directory_exists(directory):
@@ -228,22 +236,20 @@ class Application:
     def select_directory_input():
         return Application.directory_exists(Message.input("Project directory: "))
 
-    @staticmethod
-    def select_directory_argv():
-        return Application.directory_exists(sys.argv[1])
+    def get_project_directory(self):
+        directory = self.args.path
 
-    @staticmethod
-    def get_project_directory():
-        if len(sys.argv) == 1:
-            return Application.select_directory_input()
+        if directory:
+            return Application.directory_exists(directory)
         else:
-            return Application.select_directory_argv()
+            return Application.select_directory_input()
 
-    @staticmethod
-    def main():
+    def main(self, args):
+        self.args = args
+
         Message.header("Starting scan")
 
-        directory = Application.get_project_directory()
+        directory = self.get_project_directory()
 
         config = Config()
 
@@ -257,7 +263,7 @@ class Application:
 
         vulnerabilities = Vulnerabilities(host)
 
-        count = vulnerabilities.from_paths(paths)
+        count = vulnerabilities.from_paths(paths, self.args.delay)
 
         Message.header(
             "Scan done. Identified %s security vulnerabilities in the web application at [%s]." % (count, host)
@@ -265,9 +271,16 @@ class Application:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Scan a SeCloud web application for security vulnerabilities.")
+    parser.add_argument("--delay", metavar="Delay", type=int, nargs="?",
+                        help="The delay in seconds when sending web requests.")
+    parser.add_argument("path", metavar="Path", type=str, nargs="?", help="Path to the SeCloud project")
+
     try:
-        Application.main()
+        Application().main(parser.parse_args())
     except KeyboardInterrupt:
         pass
     except EOFError:
         pass
+    except Exception, exception:
+        Message.debug("Error: %s" % exception.message)

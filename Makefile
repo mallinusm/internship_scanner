@@ -1,9 +1,6 @@
-# If the first argument is "run"...
-ifeq (run,$(firstword $(MAKECMDGOALS)))
-  # use the rest as arguments for "run"
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  # ...and turn them into do-nothing targets
-  $(eval $(RUN_ARGS):;@:)
+ifeq (run, $(firstword $(MAKECMDGOALS)))
+  run_args := $(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
+  $(eval $(run_args):;@true)
 endif
 
 help: ## Show help
@@ -15,7 +12,8 @@ install: ## Install the application
 	pip install -r requirements.txt
 
 run: ## Run the application
-	.env/bin/python2 scanner.py $(RUN_ARGS)
+	.env/bin/python2 scanner.py $(run_args)
 
-.PHONY: help install run
+.PHONY:help install run
 .DEFAULT_GOAL=help
+SHELL:=/bin/bash
