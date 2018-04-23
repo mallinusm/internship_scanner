@@ -259,8 +259,15 @@ class Application:
 
         count = vulnerabilities.from_paths(paths)
 
-        Message.header("Scan done. Identified %s security vulnerabilities in the web application at [%s]." % (count, host))
+        Message.header(
+            "Scan done. Identified %s security vulnerabilities in the web application at [%s]." % (count, host)
+        )
 
 
 if __name__ == "__main__":
-    Application.main()
+    try:
+        Application.main()
+    except KeyboardInterrupt:
+        pass
+    except EOFError:
+        pass
