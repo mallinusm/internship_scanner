@@ -19,7 +19,7 @@ class Vulnerabilities:
     def load_security_policies(self):
         path = os.path.join(os.getcwd(), 'policies')
 
-        files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+        files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f)) and f.endswith('.sp')]
 
         self.security_policies = []
 
