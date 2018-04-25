@@ -12,7 +12,7 @@ install: ## Install the application
 	pip install -r requirements.txt
 
 run: ## Run the application
-	.env/bin/python2 scanner.py $(run_args)
+	.env/bin/python2 -c "from Scanner.Application import Application; Application.start()"
 
 .PHONY:help install run
 .DEFAULT_GOAL=help
