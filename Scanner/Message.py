@@ -22,3 +22,7 @@ class Message:
     @staticmethod
     def error(message):
         print '[+] \x1b[0;30;41m%s\x1b[0m' % message
+
+    @staticmethod
+    def info(message):
+        print '[+] \x1b[0;30;44m%s\x1b[0m' % message

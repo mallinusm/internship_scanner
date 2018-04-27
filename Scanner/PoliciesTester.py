@@ -54,5 +54,5 @@ class PoliciesTester:
         count = vulnerabilities.from_paths(paths, self.arguments.delay)
 
         Message.header(
-            'Scan done. Identified %s security vulnerabilities in the web application at [%s]' % (count, host)
+            'Scan done. Identified %s potential security flaws in the web application at [%s]' % (count, host)
         )

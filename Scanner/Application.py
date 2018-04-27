@@ -23,3 +23,9 @@ class Application:
             pass
         except Exception, exception:
             Message.debug('Application error: %s' % exception.message)
+
+
+if __name__ == '__main__':
+    Message.info('The application was started without Makefile')
+    Message.info('You can start the application using the command "make run"')
+    Application.start()
