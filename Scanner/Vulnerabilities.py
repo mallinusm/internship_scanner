@@ -37,18 +37,19 @@ class Vulnerabilities:
     def identify_vulnerabilities(self, request, response):
         count = 0
 
-        locals = {
+        variables = {
             'count': count,
             'request': request,
-            'response': response
+            'response': response,
+            'Message': Message
         }
 
         for security_policy in self.security_policies:
             Message.debug('Security policy: %s' % security_policy)
 
             try:
-                execfile(security_policy, dict(), locals)
-                count += (locals['count'] - count)
+                execfile(security_policy, dict(), variables)
+                count += (variables['count'] - count)
             except Exception, exception:
                 Message.debug(exception.message)
 

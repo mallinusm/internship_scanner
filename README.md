@@ -25,8 +25,11 @@ See the tool in action [here](https://vimeo.com/259124091).
 ## Installation
 
 ### Manually
+```
+@TODO
+```
 
-### Using Makefile
+#### Using Makefile
 ```
 make install
 ```

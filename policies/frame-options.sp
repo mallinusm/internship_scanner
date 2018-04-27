@@ -1,8 +1,8 @@
 header = 'X-Frame-Options'
 
 if not response.headers.get(header):
-    print '[+] %s HTTP header is missing' % header
+    Message.error('%s HTTP header is missing' % header)
 
     count += 1
 else:
-    print '[+] X-XSS-Protection protected'
+    Message.success('HTML frames protected')
