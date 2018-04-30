@@ -8,17 +8,61 @@ Watch the tool live in action [here](https://vimeo.com/259124091).
 
 ## Installation
 
-### Manually
-```
-@TODO
-```
+### Requirements
 
-#### Using Makefile
+- Python 2
+- Pip 2
+- Python virtual environment
+
+#### Makefile installation
 ```
 make install
 ```
 
+### Manual installation
+
+You can install the required Linux packages on Debian using the following command.
+
+```
+sudo apt-get install python2 python2-pip
+```
+
+Next, use pip2 to install the virtualenv package.
+```
+sudo pip2 install virtualenv
+```
+
+
+
+After the packages are installed, create the Python virtual environment.
+
+```
+virtualenv --no-site-packages --distribute .env
+. .env/bin/activate
+```
+
+Finally, install the Python packages (make sure pip2 is sourced/activated).
+
+```
+pip2 install -r requirements.txt
+```
+
 ## Run
+
+### Arguments and options
+
+#### Usage
+
+[-h] [--delay [Delay]] [Path]
+
+#### Positional arguments
+
+* Path (the path to the SeCloud project)
+
+#### Optional arguments
+
+* -h, --help (show the help message and exit)
+* --delay (the delay in seconds when sending web requests)
 
 ### Using make
 ```
@@ -47,6 +91,8 @@ Security policies are defined in the policies folder. You can add, edit and remo
 Definitions of security policies are stored in files with the extension sp, which stands for security policy. 
 
 The sp files are evaluated and executed by the scanner. The language used for implementing the security policies (sp files) is Python 2. 
+
+All valid Python code is valid inside sp files.
 
 When the scanner is started, it will call all OpenAPI specified endpoints of the web application and execute HTTP calls against each endpoint. 
 
