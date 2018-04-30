@@ -10,6 +10,9 @@ class Config:
     def __init__(self):
         pass
 
+    """
+    Load the OpenAPI config from file.
+    """
     def from_file(self, file):
         Message.debug('Reading %s' % file)
 
@@ -22,6 +25,9 @@ class Config:
 
             return self.data
 
+    """
+    Find the OpenAPI config file in a directory and load it.
+    """
     def from_directory(self, directory):
         for file in os.listdir(directory):
             if file.endswith('.yml'):
@@ -40,6 +46,9 @@ class Config:
 
         raise Exception('Unable not find *.yml OpenAPI config file in %s' % directory)
 
+    """
+    Get an attribute from the loaded config file.
+    """
     def get_attribute(self, attribute):
         Message.debug('Looking for attribute %s in OpenAPI config' % attribute)
 
@@ -56,8 +65,14 @@ class Config:
 
             raise Exception(error)
 
+    """
+    Retrieve the host (domain) of the web application to test.
+    """
     def get_host(self):
         return self.get_attribute('host')
 
+    """
+    Retrieve the path of all HTTP endpoints specified to identify security flaws.
+    """
     def get_paths(self):
         return self.get_attribute('paths')

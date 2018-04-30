@@ -16,6 +16,9 @@ class Vulnerabilities:
 
         self.host = host
 
+    """
+    Load the filename of security policies (*.sp files inside /policies).
+    """
     def load_security_policies(self):
         path = os.path.join(os.getcwd(), 'policies')
 
@@ -26,6 +29,9 @@ class Vulnerabilities:
         for f in files:
             self.security_policies.append(os.path.join(path, f))
 
+    """
+    Make sure an url starts with the "http://" prefix.
+    """
     def format_url(self, uri):
         url = self.host + uri
 
@@ -34,6 +40,9 @@ class Vulnerabilities:
 
         return url
 
+    """
+    Identify security flaws by testing the security policies on the HTTP request and response.
+    """
     def identify_vulnerabilities(self, request, response):
         count = 0
 
@@ -72,6 +81,9 @@ class Vulnerabilities:
 
             return None
 
+    """
+    Execute a HTTP request for the method and path.
+    """
     def from_path(self, method, path):
         url = self.format_url(path)
 
@@ -87,6 +99,9 @@ class Vulnerabilities:
 
         return 0
 
+    """
+    Execute HTTP requests for the methods and paths.
+    """
     def from_paths(self, paths, delay=None):
         count = 0
 

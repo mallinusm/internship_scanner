@@ -34,6 +34,9 @@ class PoliciesTester:
         else:
             return PoliciesTester.select_directory_input()
 
+    """
+    Execute a full scan (test all security policies) against a web application.
+    """
     def scan(self):
         Message.header('Starting scan')
 
