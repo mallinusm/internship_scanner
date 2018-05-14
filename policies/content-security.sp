@@ -5,4 +5,4 @@ if not response.headers.get(header):
 
     count += 1
 else:
-    Message.success('%s protected' % header)
+    Message.success('%s protected (enforce subresource integrity check)' % header)

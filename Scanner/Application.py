@@ -1,4 +1,5 @@
 import argparse
+import traceback
 
 from Scanner.Message import Message
 from Scanner.PoliciesTester import PoliciesTester
@@ -23,6 +24,7 @@ class Application:
             pass
         except Exception, exception:
             Message.debug('Application error: %s' % exception.message)
+            traceback.print_exc()
 
 
 if __name__ == '__main__':

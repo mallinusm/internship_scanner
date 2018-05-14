@@ -17,4 +17,4 @@ if request.method.lower() == 'post' and response.status_code == 200:
     protected = False
 
 if protected:
-    Message.success('CSRF protected')
+    Message.success('Protected against Cross-site Request Forgery attacks')

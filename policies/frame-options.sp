@@ -5,4 +5,4 @@ if not response.headers.get(header):
 
     count += 1
 else:
-    Message.success('HTML frames protected')
+    Message.success('HTML frames (<frame>, <iframe> and <object>) protected from rendering')
